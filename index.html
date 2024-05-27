@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Lagos Island Chapter</title>
+    <style>
+        body{
+            /* background-image: url("bg2.png"); */
+            background-repeat: no-repeat;
+            background-size:cover;
+            /* overflow-x: hidden; */
+            overflow: hidden;
+            width: 100%;
+            height: 100vh;
+        }
+        .con{
+            margin-top: 60px;
+            text-align: center;
+        }
+        .con2{
+            text-align: center;
+            /* margin-top: 0px; */
+        }
+        .con, h4 {
+            font-weight: 800;
+            color: whitesmoke;
+        }
+        .inp{
+            width: 260px;
+            border: 9px solid red;
+            border-radius: 23px;
+            height: 59px;
+            text-align: center;
+            font-size: 23px;
+            font-weight: 900;
+        }
+        .bu{
+            padding-top: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .bu2{
+            width: 200px;
+            height: 40px;
+            background-color: black;
+            color: yellow;
+            border: 1px solid green;
+            border-radius: 23px;
+            font-weight: 900;
+        }
+        button:hover {
+            background-color: #0e75dc;
+        }
+        .bstt {
+           margin-bottom: 40px;
+            margin-top: 25px;
+            color: #f1eaea;
+            /* margin-top: 5px; */
+            padding-right: 10px;
+            padding-left: 10px;
+            padding-top: 60px;
+                       
+        }
+        .bstb {
+            width: 120px;
+            border-radius: 23px;
+        }
+    </style>
+</head>
+<body  style="background-image: url('bg2.png');">
+    <div style="margin-top:70px;">
+    <p class="con2"><img src="g8.png" width="300px" height="250px"></p> 
+    <form class="container con" id="form">
+        <h4>KEY NUMBER</h4>
+        <input class="inp" type="text" name="keyNumber" id="keyNumber" required>
+        <div class="bu">     
+            <button class="bu2" type="submit" id="submit">SUBMIT</button>
+        </div>
+    </form>
+    <div class="bstt">
+        <button class="bstb" style="background-color: blue; width: 70px;height: 40px;">
+            <a style="color: white;text-decoration: none;font-weight: 800;" href="./index2.html">ADD</a>
+        </button>
+        <button class="bstb" style="background-color: blue; width: 70px; margin-left: 50px;height: 40px;">
+            <a style="color: white;text-decoration: none;font-weight: 800;" href="./count2.html">VIEW</a>
+        </button>
+        <button  class="bstb" style="background-color: blue; float: right;height: 40px;">
+            <a style="color: white;text-decoration: none;font-weight: 800;" href="./index3.html">EDIT BASE</a>
+        </button>
+    </div>
+</div>
+
+
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzG6Aq-HeruaCq7mkbu8SX_5s3LgD2mbtR5wt2aLFVnNqWQ847T7ibpp4pq8QthU79nsw/exec';
+        const form = document.querySelector('#form');
+        const btn = document.querySelector('#submit');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerHTML = "Loading...";
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => response.json())
+                .then(data => {
+                    btn.disabled = false;
+                    btn.innerHTML = "SUBMIT";
+                    if (data.result === 'success') {
+                        // alert('GREETINGS BELOVETH!');
+                    } else {
+                        let errorMessage = 'Error: ' + data.error;
+                        if (data.error === 'Key Number not found in source sheet') {
+                            errorMessage = 'Key number not found';
+                        } else if (data.error === 'Member already Registered') {
+                            errorMessage = 'Member already registered';
+                        }
+                        alert(errorMessage);
+                    }
+                    form.reset();
+                })
+                .catch(error => {
+                    btn.disabled = false;
+                    btn.innerHTML = "Submit";
+                    alert('Error: ' + error.message);
+                });
+        });
+    </script>
+</body>
+</html>

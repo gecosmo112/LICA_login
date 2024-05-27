@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <title>HTML to Sheets</title>
+       <!-- <script src="https://cdn.tailwindcss.com" defer></script> -->
+
+
+  <style>
+  body {
+  align-items: center;
+  background-image: url("bg3.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-x: hidden;background-color: #000;
+  /* height: 100vh; */
+  color: white;
+}
+
+.inp{
+width: 300px;
+height: 40px;
+border: 3px solid green;
+border-radius: 35px;
+color: #000;
+font-size: 20px;
+font-weight: 600;
+text-align: center;
+margin-bottom: 13px;
+}
+.inpp{
+margin-top: 20PX;
+text-align: center;
+
+}
+.inpp,label{
+font-size: 12px;
+}
+.inpb{
+text-align: center;
+font-size: 16px;
+width: 300px;
+height: 40px;
+font-weight: 900;
+border-radius: 23px;
+background-color: rgb(93, 0, 255);
+color: #f5eded;
+}
+.inpb:hover{
+color: #f5f50a;
+background-color: rgb(232, 94, 82);
+}
+
+/* 
+button{
+
+} */
+
+.bst{
+  justify-content: center;
+  margin-top: 25px;
+  
+  /* text-align: center; */
+}
+.bstt {
+    margin-bottom: 10px;
+    margin-top: 25px;
+    color: #f1eaea;
+    padding: 10px;
+                
+}
+.bstb {
+    width: 120px;
+    border-radius: 23px;
+}
+.bub{
+  text-align: center;
+  width: 70px;
+border-radius: 23px;
+/* padding-bottom: 35px; */
+}
+
+</style>
+
+</head>
+ 
+<body>
+  <h2 style="color: #eeb508;font-weight: 800;padding-top: 20PX;" class="text-center">ADD MEMBER</h2>
+    <form id="form">
+      <div class="inpp" >
+        <label for="name">KEY NUMBER:</label><br>
+        <input class="inp" type="text" id="keynumber" name="KEY NO." ><br>
+
+        <label for="name">NAME:</label><br>
+        <input class="inp" type="text" id="name" name="NAME" required><br>
+
+        <label for="degreeStatus">DEGREE:</label><br>
+        <input class="inp" type="text" id="DEGREE" name="DEGREE"><br>
+        
+        <label for="degreeStatus">STATUS:</label><br>
+        <input class="inp" type="text" id="STATUS" name="STATUS"><br>
+
+        <label for="phone">PHONE:</label><br>
+        <input class="inp" type="tel" id="PHONE" name="PHONE"><br>
+
+        <label for="address">ADDRESS:</label><br>
+        <textarea  style="width: 300px;height: 70px;color: #000;font-size: 18px;background-color:white;border-top:2px solid #e80b0b; border-radius: 23px;" type="text" id="ADDRESS" name="ADDRESS"></textarea><br>
+
+        <label for="office">OFFICE:</label><br>
+        <input class="inp" type="text" id="OFFICE" name="OFFICE"><br>
+
+        <label for="TAC">TAC:</label><br>
+        <input class="inp" type="text" id="TAC" name="TAC"><br>
+
+        <label for="HM">HM:</label><br>
+        <input class="inp" type="text" id="HM" name="HM"><br><br>
+        
+      </div>
+      <div style="text-align: center;">
+        <button class="inpb" type="submit" id="submit">SUBMIT</button>
+      </div>
+      </form>
+      <div class="bstt">
+        <button class="bstb" style="background-color: blue;width: 80px;height: 40px;">
+            <a style="color: white;text-decoration: none;font-weight: 800;" href="./index.html">HOME</a>
+        </button>
+        <button class="bstb" style="background-color: blue; width: 70px; margin-left: 50px;height: 40px;">
+          <a style="color: white;text-decoration: none;font-weight: 800;" href="./count2.html">VIEW</a>
+      </button>
+        <button  class="bstb" style="background-color: blue; float: right;height: 40px;">
+            <a style="color: white;text-decoration: none;font-weight: 800;" href="./index3.html">EDIT BASE</a>
+        </button>
+    </div>
+    </div>
+
+
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz3lwRqYC0xXGtVwCaQxzSQWGEKctrbhLheEtVVytzmzqaK0_Fh_5fEYoC9bokDc6zH/exec'
+   
+    const form = document.querySelector('#form')
+    const btn = document.querySelector('#submit')
+
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      btn.disabled = true
+      btn.innerHTML = "Loading..."
+
+      console.log(form)
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => { 
+              btn.disabled = false
+      btn.innerHTML = "SUBMIT"
+            // alert('Success!', response) })
+            alert('MEMBER SUCCESSFULLY ADDED!', response) 
+            form.reset(); // Clear the input field
+          })
+            
+        .catch(error => {
+                     btn.disabled = false
+      btn.innerHTML = "SUBMIT"
+            alert('Error!', error.message)})
+    })
+</script>
+
+</body>
+</html>
